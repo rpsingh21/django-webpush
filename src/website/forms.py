@@ -1,4 +1,5 @@
 from django import forms
+from datetime import datetime
 from django.contrib.auth import (
     authenticate,
     get_user_model
@@ -31,3 +32,4 @@ class LoginForm(forms.Form):
 class MessageForm(forms.Form):
     username = forms.CharField()
     message = forms.CharField(label='', widget=forms.Textarea(attrs={'rows': '2', 'cols': ''}))
+    eta = forms.DateTimeField(initial=datetime.now())

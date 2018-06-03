@@ -54,7 +54,10 @@
                         <label for="message-text" class="col-form-label">Message:</label>
                         <textarea class="form-control" name="message" id="message-text"></textarea>
                     </div>
-
+                    <div class="form-group">
+                        <label for="datepicker">time</label>
+                        <input type='text' name="eta" class="form-control" id='datetimepicker'/>
+                    </div>
                 </div>
                 {% csrf_token %}
                 <div class="modal-footer">
@@ -68,13 +71,20 @@
 {% endblock %}
 {% block js %}
 <script type="text/javascript">
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+        });
+    });
+</script>
+<script type="text/javascript">
     $("document").ready(function() {
         $('#exampleModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)
             var recipient = button.data('whatever')
             var modal = $(this)
             modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body input').val(recipient)
+            modal.find('#recipient-name').val(recipient)
         })
         $("#btnSubmit").click(function() {
             $.ajax({

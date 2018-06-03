@@ -16,7 +16,6 @@ User = get_user_model()
 
 @login_required(login_url='/login/')
 def home(request):
-    print(request)
     context = {
         'webpush': {"group": 'alluser'},
         'title': 'home'
@@ -43,12 +42,13 @@ def send_notification(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             message = form.cleaned_data.get("message")
+            eta = form.cleaned_data.get("eta")
+            print(eta)
             if username == "alluser":
-                send_notification_to_group(username, message)
+                send_notification_to_group.apply_async((username, message), eta=eta)
             else:
-                send_notification_to_user.delay(username, message)
+                send_notification_to_user.apply_async((username, message), eta=eta)
             return JsonResponse({'status': 'true', 'message': 'successfuly'}, status=200)
-
     return JsonResponse({'status': 'false', 'message': 'bad request'}, status=504)
 
 

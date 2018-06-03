@@ -7,7 +7,7 @@ User = get_user_model()
 
 @task(name="send_notification_to_user")
 def send_notification_to_user(username, message):
-    payload = {"head": "WEB PUSH to"+username, "body": message}
+    payload = {"head": "WEB PUSH to "+username, "body": message}
     user = User.objects.get(username=username)
     send_user_notification(user=user, payload=payload, ttl=1000)
 
