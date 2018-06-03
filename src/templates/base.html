@@ -1,0 +1,68 @@
+{% load staticfiles %}
+{% load webpush_notifications %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock %} | Web Push App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/media/icon.png" sizes="64x64" type="image/png">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/main.css' %}" />
+    {% webpush %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg border-bottom navbar-light">
+        <a class="navbar-brand" href="/">
+            <img src="/media/icon.png" width="40" height="38" class="d-inline-block mr-2" alt="fgiet">Web Push App
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ request.user }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'website:logout' %}">logout</a>
+                </li>
+                {% if request.user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'website:sUser' %}">send_notification</a>
+                </li>
+                {% endif %}
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'website:login' %}">login</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">about us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+    <br/>
+    <footer class="footer border-top pt-4">
+        <div class="centerD">
+            <p class="text-center">
+                <b>© Copyright 2018 - All Rights Reserved</b>
+            </p>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block js %} {% endblock %}
+</body>
+
+</html>

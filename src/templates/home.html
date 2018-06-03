@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load webpush_notifications %}
+{% load staticfiles %}
+{% block title %}{{ title  }}{% endblock %}
+{% block content %}
+<div class="my-5">
+	<div class="row justify-content-md-center">
+		<div class="col-sm col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="text-center uppercase"> Webpush notification </h3>
+				</div>
+                <dir class="card-body">
+					<div class="centerD">
+						{% webpush_button %}
+					</div>
+				</dir>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+    $("document").ready(function() {
+        $("#webpush-subscribe-button").addClass("btn btn-primary px-3")
+    })
+</script>
+{% endblock %}
