@@ -11,7 +11,7 @@ cffi==1.11.5
 chardet==3.0.4
 configparser==3.5.0
 crispy==0.5.0
-cryptography==2.2.2
+cryptography==3.2
 cycler==0.10.0
 decorator==4.1.2
 defusedxml==0.5.0
